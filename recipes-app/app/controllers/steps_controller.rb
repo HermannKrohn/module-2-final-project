@@ -14,12 +14,13 @@ class StepsController < ApplicationController
 
     def update
         # byebug
-        Step.update(step_params)
+        @step = Step.find(params[:id])
+        @step.update(step_params)
     end
 
     def destroy
         
-        @Step = Step.find(params[:id])
+        @step = Step.find(params[:id])
         @step.destroy
     
     end
