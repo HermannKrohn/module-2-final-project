@@ -3,6 +3,12 @@ class User < ApplicationRecord
     has_many :recipes, through: :user_recipes
     has_many :relationships, dependent: :destroy
 
+    validates :username, presence: true
+    validates :username, uniqueness: true, length: 8..20
+    validates :age, numericality: { 14..120, only_integer: true }
+
+
+
     def following
         following_ids = Relationship.all.select do | relationship |
             relationship.follower_id == self.id
