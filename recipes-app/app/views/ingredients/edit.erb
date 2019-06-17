@@ -1,26 +1,29 @@
 
 
 <body class = 'container-fluid'>
+    <h1>Edit <%=@ingredient.name.capitalize%></h1><br>
+    <hr>
     <form method = 'POST' action = '/ingredients/<%=@ingredient.id%>'>
         <input type = 'hidden' name = '_method' value = 'PATCH'>
             <div>
                 <label>Name</label>
-                <input type = 'text' name = 'name' value = '<%=@ingredient.name%>'>
+                <input class = 'form-control' type = 'text' name = 'name' value = '<%=@ingredient.name%>'>
             </div>
             <div>
                 <label>Category</label>
-                <input type = 'text' name = 'category' value = '<%=@ingredient.category%>'>
+                <input class = 'form-control' type = 'text' name = 'category' value = '<%=@ingredient.category%>'>
             </div>
             <div>
                 <label>Quantity</label>
-                <input type = 'number' step = 0.25 name = 'quantity' value = '<%=@ingredient.quantity%>'>
+                <input class = 'form-control' type = 'number' step = 0.25 name = 'quantity' value = '<%=@ingredient.quantity%>'>
             </div>
             <div>
                 <label>Units</label>
-                <input type = 'text' name = 'units' value = '<%=@ingredient.units%>'>
-            </div>
+                <input class = 'form-control' type = 'text' name = 'units' value = '<%=@ingredient.units%>'>
+            </div><br>
 
             <button>Finalize Edits</button>
+    </form>
 
 
 </body>
