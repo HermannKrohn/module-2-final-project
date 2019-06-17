@@ -7,10 +7,15 @@ class IngredientsController < ApplicationController
         @ingredient = Ingredient.find(params[:id])
     end
 
-    def update
+    def create
         # byebug
         Ingredient.create(ingredient_params)
+    end
 
+    def update
+        # byebug
+        @ingredient = Ingredient.find(params[:id])
+        @ingredient.update(ingredient_params)
     end
 
     def destroy
