@@ -1,0 +1,7 @@
+<h1><%=@user.first_name%> <%=@user.last_name%>'s Dashboard</h1>
+
+<ul>
+    <%@user.recipes do |recipe|%>
+        <li><label>Title:</label><%=recipe.title%><label> Category:</label><%=recipe.category%></li>
+    <%end%>
+</ul>

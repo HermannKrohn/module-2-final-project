@@ -1,6 +1,7 @@
 <h1>Sign up</h1>
 
 <form method="POST" action="/sign-up">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div>
         <label>Username:</label>
         <input type="text" name="user[username]" placeholder="Username">
@@ -19,7 +20,7 @@
     </div>  
     <div>
         <label>Password:</label>
-        <input type="text" name="user[password]" placeholder="Password">
+        <input type="password" name="user[password_hash]" placeholder="Password">
     </div>  
     <div>
         <input type="submit" value="Create Account">
