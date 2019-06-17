@@ -1,0 +1,14 @@
+
+
+<body class = 'container-fluid'>
+    <form method = 'POST' action = '/steps/<%=@step.id%>'>
+        <input type = 'hidden' name = '_method' value = 'PATCH'>
+            <div>
+                <label>Description</label>
+                <input type = 'text' name = 'description' value = '<%=@step.description%>'>
+            </div>
+
+            <button>Finalize Edits</button>
+
+
+</body>
