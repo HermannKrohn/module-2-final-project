@@ -1,0 +1,22 @@
+
+
+<body class = 'container-fluid'>
+    <h1>Edit <%=@recipe.title.capitalize%></h1><br>
+    <hr>
+
+    <form method = 'POST' action = '/recipes/<%=@recipe.id%>'>
+        <input type = 'hidden' name = '_method' value = 'PATCH'>
+            <div>
+                <label>Title: </label>
+                <input class = 'form-control' type = 'text' name = 'title' value = '<%=@recipe.title%>'>
+            </div>
+            <div>
+                <label>Category: </label>
+                <input class = 'form-control' type = 'text' name = 'category' value = '<%=@recipe.category%>'>
+            </div><br>
+            
+            <button class = 'btn btn-primary'>Finalize Edits</button>
+    </form>
+
+
+</body>
