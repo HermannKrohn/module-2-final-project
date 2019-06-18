@@ -17,6 +17,11 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
     end
 
+    def search_other_user_page
+        searched_user = User.find_by(username: user_params[:user][:username])
+        redirect_to "/index/#{searched_user.id}"
+    end
+
     def login
         if(flash[:errors])
             @errors = flash[:errors]
