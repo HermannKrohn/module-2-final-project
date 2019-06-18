@@ -5,6 +5,7 @@ class UsersController < ApplicationController
         if new_user.valid?(:create_account)
             new_user.password_hash = new_user.hash_password(new_user.password_hash)
             new_user.save
+            session[:user_id] = new_user.id
             redirect_to "/index/#{new_user.id}"
         else
             flash[:errors] = new_user.errors.messages
