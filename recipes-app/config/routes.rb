@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/login', to: 'users#login'
   post '/authenticate', to: 'users#authenticate'
   post '/sign-up', to: 'users#create_account'
+  post '/search-user', to: 'users#search_other_user_page'
 end
 
 
