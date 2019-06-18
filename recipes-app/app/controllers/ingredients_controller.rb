@@ -32,12 +32,14 @@ class IngredientsController < ApplicationController
         @ingredient = Ingredient.find(params[:id])
         @ingredient.quantity += 0.25
         @ingredient.save
+        redirect_to "/ingredients/#{@ingredient.id}/edit"
     end
 
-    def deccrement_quantity
+    def decrement_quantity
         @ingredient = Ingredient.find(params[:id])
         @ingredient.quantity -= 0.25
         @ingredient.save
+        redirect_to "/ingredients/#{@ingredient.id}/edit"
     end
 
     def destroy
