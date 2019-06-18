@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
 
-    def create_account #DONT FORGET TO VALIDATE INPUTS
+    def create_account 
         new_user = User.new(user_params[:user])
-        new_user.password_hash = new_user.hash_password(new_user.password_hash)
-        new_user.save
-        redirect_to "/index/#{new_user.id}"
+        if new_user.valid?(:create_account)
+            new_user.password_hash = new_user.hash_password(new_user.password_hash)
+            new_user.save
+            redirect_to "/index/#{new_user.id}"
+        else
+            flash[:errors] = new_user.errors.messages
+            redirect_to "/sign_up"
+        end
     end
 
     def index
@@ -17,6 +22,22 @@ class UsersController < ApplicationController
         else
             @errors = {
                 "login_errors" => []
+            }
+        end
+    end
+
+    def sign_up
+        if(flash[:errors])
+            @errors = flash[:errors]
+        else
+            @errors = {
+                "username_length" => [],
+                "username_digits" => [],
+                "first_name_digits" => [],
+                "last_name_digits" => [],
+                "age" => [],
+                "password_length" => [],
+                "password_digits" => []
             }
         end
     end

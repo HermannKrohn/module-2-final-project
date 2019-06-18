@@ -3,6 +3,15 @@
 <form method="POST" action="/sign-up">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div>
+        <ul>
+            <% @errors.each do |error_hash| %>
+                <% error_hash[1].each do |e| %>
+                    <li><%=e%></li>
+                <%end%>
+            <%end%>
+        </ul>
+    </div>
+    <div>
         <label>Username:</label>
         <input type="text" name="user[username]" placeholder="Username">
     </div>  
