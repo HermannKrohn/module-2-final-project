@@ -4,6 +4,9 @@ class IngredientsController < ApplicationController
 
 
     def edit
+        if (flash[:form_errors])
+            @errors = flash[:form_errors]
+        end
         @ingredient = Ingredient.find(params[:id])
     end
 
@@ -15,14 +18,31 @@ class IngredientsController < ApplicationController
     def update
         # byebug
         @ingredient = Ingredient.find(params[:id])
-        @ingredient.update(ingredient_params)
+        @ingredient.assign_attributes(ingredient_params)
+        if @ingredient.valid?
+            @ingredient.save
+            redirect_to '/index/session[:id]'
+        else
+            flash[:form_errors] = @ingredient.errors.messages
+            redirect_to "/ingredients/#{@ingredient.id}/edit"
+        end
+    end
+
+    def increment_quantity
+        @ingredient = Ingredient.find(params[:id])
+        @ingredient.quantity += 0.25
+        @ingredient.save
+    end
+
+    def deccrement_quantity
+        @ingredient = Ingredient.find(params[:id])
+        @ingredient.quantity -= 0.25
+        @ingredient.save
     end
 
     def destroy
-        
         @ingredient = Ingredient.find(params[:id])
         @ingredient.destroy
-    
     end
 
     def ingredient_params
@@ -32,7 +52,6 @@ class IngredientsController < ApplicationController
             :quantity,
             :units
         )
-
     end
 
 end
