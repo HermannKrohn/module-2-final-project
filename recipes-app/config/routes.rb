@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   
   get '/sign_up', to: 'users#sign_up'
   post '/sign-up', to: 'users#create_account'
+
+  get '/ingredients/:id/quantity/increment', to: 'ingredients#increment_quantity'
+
+  get '/ingredients/:id/quantity/decrement', to: 'ingredients#decrement_quantity'
   
 end
 
