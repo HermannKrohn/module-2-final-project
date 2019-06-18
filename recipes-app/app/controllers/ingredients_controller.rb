@@ -10,6 +10,10 @@ class IngredientsController < ApplicationController
         @ingredient = Ingredient.find(params[:id])
     end
 
+    def show
+        @ingredient = Ingredient.find(params[:id])
+    end
+
     def create
         # byebug
         Ingredient.create(ingredient_params)

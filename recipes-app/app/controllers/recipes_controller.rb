@@ -25,16 +25,36 @@ class RecipesController < ApplicationController
 
     end
 
+    def show
+        @recipe = Recipe.find(params[:id])
+
+        # ingredient_ids = RecipeIngredient.all.select do | recipe_ingredient |
+        #     recipe_ingredient.recipe_id == @recipe.id
+        # end.map do | recipe_ingredient |
+        #     recipe_ingredient.ingredient_id
+        # end
+
+        # @ingredients = Ingredient.all.select do | ingredient |
+        #     ingredient_ids.each do | ingredient_id |
+        #         ingredient.id == ingredient_id
+        #     end
+        # end
+    end
+
     def create
         # byebug
-
-        @recipe = Recipe.new(recipe_params)
         if @recipe.valid?
+            @recipe = Recipe.new(recipe_params)
             @recipe.save
+            @userrecipe = UserRecipe.new(user_id: session[:user_id], recipe_id: @recipe.id)
+            @userrecipe.save
+            redirect_to "/index/#{session[:user_id]}"
+
         else
             flash[:form_errors] = @recipe.errors.messages
             redirect_to "/index/#{session[:user_id]}"
         end
+        
 
     end
 
