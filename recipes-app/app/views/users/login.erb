@@ -3,6 +3,13 @@
 <form method="POST" action="/authenticate">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div>
+        <ul>
+            <% @errors["login_errors"].each do |e| %>
+                <li><%=e%></li>
+            <%end%>
+        </ul>
+    </div>
+    <div>
         <label>Username:</label>
         <input type="text" name="user[username]" placeholder="Username">
     </div>

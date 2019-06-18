@@ -11,11 +11,25 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
     end
 
+    def login
+        if(flash[:errors])
+            @errors = flash[:errors]
+        else
+            @errors = {
+                "login_errors" => []
+            }
+        end
+    end
+
     def authenticate
         user = User.find_by(username: user_params[:user][:username])
         if user != nil && user.authenticate(user_params[:user][:password_hash])
             session[:user_id] = user.id
             redirect_to "/index/#{user.id}"
+        else
+            user.errors.add(:login_errors, "Incorrect Username or Password. Please try again")
+            flash[:errors] = user.errors.messages
+            redirect_to "/login"
         end
     end
 
