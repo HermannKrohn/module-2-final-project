@@ -11,6 +11,10 @@ class RecipesController < ApplicationController
         end        
 
     end
+
+    def show
+    
+    end
     
     def edit
         if(flash[:form_errors])
@@ -41,7 +45,7 @@ class RecipesController < ApplicationController
         @recipe.assign_attributes(recipe_params)
         if @recipe.valid?
             @recipe.save
-            redirect_to 
+            redirect_to "/index/#{session[:user_id]}"
         else
             flash[:form_errors] = @recipe.errors.messages
             redirect_to "/recipes/#{@recipe.id}/edit"
