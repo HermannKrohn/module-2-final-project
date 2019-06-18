@@ -15,7 +15,7 @@
             </div>
             <div>
                 <label>Quantity</label>
-                <input class = 'form-control' type = 'number' step = 0.25 name = 'quantity' value = '<%=@ingredient.quantity%>'>
+                <input class = 'form-control' type = 'text' name = 'quantity' value = '<%=@ingredient.quantity%>'>
                 <button style = "margin-top: 5px; margin-bottom: 5px;"><%= link_to "-", "/ingredients/#{@ingredient.id}/quantity/decrement" %></button>
                 <button style = "margin-top: 5px; margin-bottom: 5px;"><%= link_to "+", "/ingredients/#{@ingredient.id}/quantity/increment" %></button>
             </div>

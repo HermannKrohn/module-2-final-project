@@ -13,7 +13,7 @@ class IngredientsController < ApplicationController
     def create
         # byebug
         Ingredient.create(ingredient_params)
-        redirect_to '/index/session[:id]'
+        redirect_to "/index/#{session[:user_id]}"
     end
 
     def update
@@ -22,7 +22,7 @@ class IngredientsController < ApplicationController
         @ingredient.assign_attributes(ingredient_params)
         if @ingredient.valid?
             @ingredient.save
-            redirect_to '/index/session[:id]'
+            redirect_to "/index/#{session[:user_id]}"
         else
             flash[:form_errors] = @ingredient.errors.messages
             redirect_to "/ingredients/#{@ingredient.id}/edit"

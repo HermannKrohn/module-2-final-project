@@ -29,7 +29,7 @@ class RecipesController < ApplicationController
             @recipe.save
         else
             flash[:form_errors] = @recipe.errors.messages
-            redirect_to "/index/#{session[:id]}"
+            redirect_to "/index/#{session[:user_id]}"
         end
 
     end
