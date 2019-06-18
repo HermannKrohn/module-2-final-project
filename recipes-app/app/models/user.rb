@@ -5,8 +5,8 @@ class User < ApplicationRecord
 
     validates :username, presence: true
     validates :username, uniqueness: true, length: 8..20
-    validates :age, numericality: { 14..120, only_integer: true }
-
+    validates :age, numericality: { greater_than_or_equal_to: 14 }
+    validates :age, numericality: { only_integer: true }
 
 
     def following
