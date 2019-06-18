@@ -2,6 +2,7 @@
 
 <body class = 'container-fluid'>
     <h1>Edit <%=@ingredient.name.capitalize%></h1><br>
+    <p><%=@errors%></p>
     <hr>
     <form method = 'POST' action = '/ingredients/<%=@ingredient.id%>'>
         <input type = 'hidden' name = '_method' value = 'PATCH'>
@@ -13,11 +14,14 @@
                 <label>Category</label>
                 <input class = 'form-control' type = 'text' name = 'category' value = '<%=@ingredient.category%>'>
             </div>
-            <div>
+            <div >
                 <label>Quantity</label>
                 <input class = 'form-control' type = 'text' name = 'quantity' value = '<%=@ingredient.quantity%>'>
-                <button style = "margin-top: 5px; margin-bottom: 5px;"><%= link_to "-", "/ingredients/#{@ingredient.id}/quantity/decrement" %></button>
-                <button style = "margin-top: 5px; margin-bottom: 5px;"><%= link_to "+", "/ingredients/#{@ingredient.id}/quantity/increment" %></button>
+                <div style = 'margin-top:10px; margin-left: 20px; margin-bottom: 15px;'>
+                    <%= link_to "-", "/ingredients/#{@ingredient.id}/quantity/decrement" %>
+                    <%= link_to "+", "/ingredients/#{@ingredient.id}/quantity/increment" %>
+                </div>
+                
             </div>
             <div>
                 <label>Units</label>
