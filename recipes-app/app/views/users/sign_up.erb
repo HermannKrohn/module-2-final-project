@@ -1,0 +1,37 @@
+<h1>Sign up</h1>
+
+<form method="POST" action="/sign-up">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div>
+        <ul>
+            <% @errors.each do |error_hash| %>
+                <% error_hash[1].each do |e| %>
+                    <li><%=e%></li>
+                <%end%>
+            <%end%>
+        </ul>
+    </div>
+    <div>
+        <label>Username:</label>
+        <input type="text" name="user[username]" placeholder="Username">
+    </div>  
+    <div>
+        <label>First Name:</label>
+        <input type="text" name="user[first_name]" placeholder="First Name">
+    </div>  
+    <div>
+        <label>Last Name:</label>
+        <input type="text" name="user[last_name]" placeholder="Last Name">
+    </div>  
+    <div>
+        <label>Age:</label>
+        <input type="text" name="user[age]" placeholder="Age">
+    </div>  
+    <div>
+        <label>Password:</label>
+        <input type="password" name="user[password_hash]" placeholder="Password">
+    </div>  
+    <div>
+        <input type="submit" value="Create Account">
+    </div>
+</form>
