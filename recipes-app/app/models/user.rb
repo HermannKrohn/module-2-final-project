@@ -3,6 +3,15 @@ class User < ApplicationRecord
     has_many :recipes, through: :user_recipes
     has_many :relationships, dependent: :destroy
 
+    def hash_password(value)
+        BCrypt::Password.create(value)
+    end
+
+    def authenticate(value)
+        password = BCrypt::Password.new(self.password_hash)
+        password == value
+    end
+
     def following
         following_ids = Relationship.all.select do | relationship |
             relationship.follower_id == self.id

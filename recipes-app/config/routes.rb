@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get '/index/:id', to: "users#index"
   get '/sign_up', to: 'users#sign_up'
+  get '/login', to: 'users#login'
+  post '/authenticate', to: 'users#authenticate'
   post '/sign-up', to: 'users#create_account'
 end
 

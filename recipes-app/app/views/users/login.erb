@@ -1,0 +1,16 @@
+<h1>Login</h1>
+
+<form method="POST" action="/authenticate">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div>
+        <label>Username:</label>
+        <input type="text" name="user[username]" placeholder="Username">
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="user[password_hash]" placeholder="Password">
+    </div>
+    <div>
+        <input type="submit" value="Login">
+    </div>
+</form>
