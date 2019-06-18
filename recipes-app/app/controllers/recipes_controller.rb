@@ -45,6 +45,7 @@ class RecipesController < ApplicationController
         else
             flash[:form_errors] = @recipe.errors.messages
             redirect_to "/recipes/#{@recipe.id}/edit"
+        end
 
     end
 
