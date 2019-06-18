@@ -13,6 +13,7 @@ class IngredientsController < ApplicationController
     def create
         # byebug
         Ingredient.create(ingredient_params)
+        redirect_to '/index/session[:id]'
     end
 
     def update
