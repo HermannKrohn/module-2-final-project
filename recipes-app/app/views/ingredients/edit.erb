@@ -1,6 +1,6 @@
 
 
-<body class = 'container-fluid'>
+<body class = 'container-fluid' style = 'background: yellow'>
     <h1>Edit <%=@ingredient.name.capitalize%></h1><br>
     <p><%=@errors%></p>
     <hr>
@@ -18,8 +18,8 @@
                 <label>Quantity</label>
                 <input class = 'form-control' type = 'text' name = 'quantity' value = '<%=@ingredient.quantity%>'>
                 <div style = 'margin-top:10px; margin-left: 20px; margin-bottom: 15px;'>
-                    <%= link_to "-", "/ingredients/#{@ingredient.id}/quantity/decrement" %>
-                    <%= link_to "+", "/ingredients/#{@ingredient.id}/quantity/increment" %>
+                    <a href= "/ingredients/<%=@ingredient.id%>/quantity/decrement"><button class = 'btn btn-primary'>Decrease</button></a>
+                    <a href= "/ingredients/<%=@ingredient.id%>/quantity/increment"><button class = 'btn btn-primary'>Increase</button></a>
                 </div>
                 
             </div>
