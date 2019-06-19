@@ -79,7 +79,8 @@ class RecipesController < ApplicationController
     def recipe_params
         params.permit(
             :title,
-            :category        
+            :category,
+            description: []        
         )
 
     end

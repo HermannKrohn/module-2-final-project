@@ -1,9 +1,16 @@
 
-
-<body class = container-fluid>
-    <h1>Create a Recipe</h1><br>
+<head>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" 
+            integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" 
+            crossorigin="anonymous">
+        </script>
+        <script src="js/dynamic-form.js"></script>
+</head>
+<body class = 'container-fluid' style = "background-color: yellow">
+    <h1>Create a Recipe</h1>
+    <br><button class = 'btn btn-primary'>Create New Recipe</button>
     <hr>
-    <form method = 'POST' action = '/recipes'>
+    <form id="form" method = 'POST' action = '/recipes'>
         <div>
             <label>Title: </label>
             <input class = 'form-control' type = 'text' name = 'title' placeholder = 'Enter Recipe Title'>
@@ -12,9 +19,83 @@
             <label>Category: </label>
             <input class = 'form-control' type = 'text' name = 'category' placeholder = 'Enter Recipe Category'>
         </div><br>
+        <div class = 'row container'>
+            <div class = 'col-4'>
+                <h5>Ingredients:</h5>
+            </div>
+            <div class = 'col-8'>
+                <h5>Steps:</h5>
+            </div>
+        </div>
+        <div class = 'row container'>
+            <div id = 'ingredients' class = 'col-4'>
+            </div>
+            <div id = 'steps' class = 'col-8'>
+            </div>
+        </div>
+        
+    </form><br>
+    <button class = 'btn btn-primary' onclick="myIngredientFunction()">Add an ingredient</button>
+    <button class = 'btn btn-primary' onclick="myStepFunction()">Add recipe step</button>
 
-        <button class = 'btn btn-primary'>Create New Recipe</button>
-    </form>
+
+        <script>
+            var ingredientCounter = 1;
+            var stepCounter = 1;
+            function myIngredientFunction() {
+               
+                var v = document.createElement("LABEL");
+                var w = document.createElement("INPUT");
+                var x = document.createElement("INPUT");
+                var y = document.createElement("INPUT");
+                var z = document.createElement("INPUT");
+
+                w.setAttribute("type", "text");
+                w.setAttribute("class", "form-control")
+                w.setAttribute("name", "name");
+                w.setAttribute("value", "name");
+                x.setAttribute("type", "text");
+                x.setAttribute("class", "form-control")
+                x.setAttribute("name", "category");
+                x.setAttribute("value", "category");
+                y.setAttribute("type", "text");
+                y.setAttribute("class", "form-control")
+                y.setAttribute("name", "quantity");
+                y.setAttribute("value", "quantity");
+                z.setAttribute("type", "text");
+                z.setAttribute("class", "form-control")
+                z.setAttribute("name", "units");
+                z.setAttribute("value", "units");
+
+                document.getElementById('ingredients').appendChild(v).innerHTML = `<strong>Ingredient ${ingredientCounter}</strong>`;
+                document.getElementById('ingredients').appendChild(w);
+                document.getElementById('ingredients').appendChild(x);
+                document.getElementById('ingredients').appendChild(y);
+                document.getElementById('ingredients').appendChild(z);
+
+                ingredientCounter += 1;
+                }
+
+            function myStepFunction() {
+                let counter = 1
+                var v = document.createElement("LABEL");
+                var w = document.createElement("TEXTAREA");
+
+                w.setAttribute("type", "textarea");
+                w.setAttribute("style", "width: 1000px; height: 100px;")
+                w.setAttribute("class", "form-control")
+                w.setAttribute("name", "descriptions[]");
+                w.setAttribute("placeholder", "description");
+
+                document.getElementById('steps').appendChild(v).innerHTML = `<strong>Step ${stepCounter}</strong>`;
+                document.getElementById('steps').appendChild(w);
+
+                stepCounter++
+                }
+
+
+        </script>
+        
 
 
 </body>
