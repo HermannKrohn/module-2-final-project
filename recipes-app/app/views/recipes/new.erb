@@ -2,18 +2,20 @@
 <head>
     
 </head>
-<body class = 'container-fluid' style = "background-color: yellow">
+<body class = 'container-fluid' style = "background-color: #CEE6DA">
+
     <h1>Create a Recipe</h1>
-    <br><button class = 'btn btn-primary'>Create New Recipe</button>
-    <hr>
     <form id="form" method = 'POST' action = '/recipes'>
+        <br><button class = 'btn btn-primary'>Create New Recipe</button><br><br>
+        <hr>
+
         <div>
-            <label>Title: </label>
-            <input class = 'form-control' type = 'text' name = 'title' placeholder = 'Enter Recipe Title'>
-        </div>
+            <label><h5>Title: </h5></label>
+            <input class = 'form-control' type = 'text' name = 'recipe[title]' placeholder = 'Enter Recipe Title'>
+        </div><br>
         <div>
-            <label>Category: </label>
-            <input class = 'form-control' type = 'text' name = 'category' placeholder = 'Enter Recipe Category'>
+            <label><h5>Category: </h5></label>
+            <input class = 'form-control' type = 'text' name = 'recipe[category]' placeholder = 'Enter Recipe Category'>
         </div><br>
         <div class = 'row container'>
             <div class = 'col-4'>
@@ -48,19 +50,19 @@
 
                 w.setAttribute("type", "text");
                 w.setAttribute("class", "form-control")
-                w.setAttribute("name", "name");
+                w.setAttribute("name", "ingredients[names][]");
                 w.setAttribute("value", "name");
                 x.setAttribute("type", "text");
                 x.setAttribute("class", "form-control")
-                x.setAttribute("name", "category");
+                x.setAttribute("name", "ingredients[categories][]");
                 x.setAttribute("value", "category");
                 y.setAttribute("type", "text");
                 y.setAttribute("class", "form-control")
-                y.setAttribute("name", "quantity");
+                y.setAttribute("name", "ingredients[quantities][]");
                 y.setAttribute("value", "quantity");
                 z.setAttribute("type", "text");
                 z.setAttribute("class", "form-control")
-                z.setAttribute("name", "units");
+                z.setAttribute("name", "ingredients[units][]");
                 z.setAttribute("value", "units");
 
                 document.getElementById('ingredients').appendChild(v).innerHTML = `<strong>Ingredient ${ingredientCounter}</strong>`;
@@ -80,7 +82,7 @@
                 w.setAttribute("type", "textarea");
                 w.setAttribute("style", "width: 1000px; height: 100px;")
                 w.setAttribute("class", "form-control")
-                w.setAttribute("name", "descriptions[]");
+                w.setAttribute("name", "steps[descriptions][]");
                 w.setAttribute("placeholder", "description");
 
                 document.getElementById('steps').appendChild(v).innerHTML = `<strong>Step ${stepCounter}</strong>`;

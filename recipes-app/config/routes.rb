@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   # Recipes
   delete '/delete/:id', to: "recipes#destroy"
+  post '/recipes', to: "recipes#create"
 
   #Ingredients
   get '/ingredients/:id/quantity/increment', to: 'ingredients#increment_quantity'

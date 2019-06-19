@@ -42,7 +42,7 @@ class RecipesController < ApplicationController
     end
 
     def create
-        # byebug
+        byebug
         @recipe = Recipe.new(recipe_params)
         if @recipe.valid?
             @recipe.save
@@ -78,11 +78,21 @@ class RecipesController < ApplicationController
 
     def recipe_params
         params.permit(
-            :title,
-            :category,
-            description: []        
-        )
-
+              recipe: [
+                :title,
+                :category
+              ],
+              ingredients: [
+                names: [],
+                categories: [],
+                quantities: [],
+                units: []
+              ],
+              steps: [
+                  descriptions: []
+              ]
+            )
+        
     end
 
 end
