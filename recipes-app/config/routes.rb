@@ -20,6 +20,12 @@ Rails.application.routes.draw do
   post '/authenticate', to: 'users#authenticate'
   post '/sign-up', to: 'users#create_account'
   post '/search-user', to: 'users#search_other_user_page'
+
+  #clear session
+  post '/clear_session.rb', to: 'users#clear_session'
+
+  #dont ask
+  post '/refreshSession', to: 'users#refresh_session'
 end
 
 

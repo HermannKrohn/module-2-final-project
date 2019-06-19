@@ -14,3 +14,9 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+setInterval(() => {
+    fetch("/refreshSession", {method: "POST",
+    authenticity_token: form_authenticity_token
+})
+}, 1000 * 10)
