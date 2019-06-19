@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   resources :ingredients
   resources :steps
   
+  # Recipes
+  delete '/delete/:id', to: "recipes#destroy"
+
   #Ingredients
   get '/ingredients/:id/quantity/increment', to: 'ingredients#increment_quantity'
   get '/ingredients/:id/quantity/decrement', to: 'ingredients#decrement_quantity'

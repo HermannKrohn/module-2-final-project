@@ -1,7 +1,14 @@
 
 
 <body class = container-fluid>
-    <h1><%=@recipe.title.capitalize%> Recipe</h1><br>
+    <h1><%=@recipe.title.capitalize%> Recipe</h1>
+    <div>
+        <a href = "/recipes/<%=@recipe.id%>/edit"><button class = 'btn btn-primary'>Edit</button></a>
+        <form method = 'POST' action = "/delete/<%=@recipe.id%>">
+            <input type = 'hidden' name = '_method' value = 'DELETE'>
+                <button class = 'btn btn-danger'>Delete</button>
+        </form>
+    </div>
     <hr>
     <div class = 'row'>
         <div class= 'col'>
@@ -48,6 +55,7 @@
         </div>
     </div>
     </div>
+    
 
 
 </body>

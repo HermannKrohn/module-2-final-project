@@ -73,6 +73,7 @@ class RecipesController < ApplicationController
     def destroy
         @recipe = Recipe.find(params[:id])
         @recipe.destroy
+        redirect_to "/index/#{session[:user_id]}"
     end
 
     def recipe_params
