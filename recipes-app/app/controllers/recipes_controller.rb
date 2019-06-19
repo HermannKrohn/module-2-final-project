@@ -43,19 +43,16 @@ class RecipesController < ApplicationController
 
     def create
         # byebug
+        @recipe = Recipe.new(recipe_params)
         if @recipe.valid?
-            @recipe = Recipe.new(recipe_params)
             @recipe.save
             @userrecipe = UserRecipe.new(user_id: session[:user_id], recipe_id: @recipe.id)
             @userrecipe.save
             redirect_to "/index/#{session[:user_id]}"
-
         else
             flash[:form_errors] = @recipe.errors.messages
             redirect_to "/index/#{session[:user_id]}"
         end
-        
-
     end
 
     def update
