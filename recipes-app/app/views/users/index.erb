@@ -3,15 +3,20 @@
 <br>
 
 <div>
-    <a href="/recipe/new"><button>Create New Recipe</button></a>
+    <a href="/recipes/new"><button>Create New Recipe</button></a>
     <form method="POST" action="/search-user">
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <input type="text" name="user[username]" placeholder="Search User">
     <form>
 </div>
 
-<ul>
-    <%@user.recipes do |recipe|%>
-        <li><label>Title:</label><%=recipe.title%><label> Category:</label><%=recipe.category%></li>
-    <%end%>
-</ul>
+<br>
+
+<div>
+    <h3>Your Recipes:</h3>
+    <ul>
+        <%@user.recipes.each do |recipe|%>
+            <li><label><strong>Recipe:</strong></label><%=recipe.title%> <label><strong>Category:</strong></label><%=recipe.category%></li>
+        <%end%>
+    </ul>
+</div>
