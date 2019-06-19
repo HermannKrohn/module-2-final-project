@@ -4,38 +4,49 @@
     <h1><%=@recipe.title.capitalize%> Recipe</h1><br>
     <hr>
     <div class = 'row'>
-        <div class= 'col-6'>
-        <table class = 'table'>
-            <tr>
-                <th>Title</th>
-                <th>Category</th>
-            </tr>
-            <tr>
-                <td><%=@recipe.title.capitalize%></td>
-                <td><%=@recipe.category.capitalize%></td>
-            </tr>
-        </table>
-        </div>    
-    </div><br>
-    <div class = 'row'>
-        <div class = 'col-6'>
-        <% @recipe.ingredients.each do | ingredient |%>
-        <table class = 'table'>
-            <tr>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th>Units</th>
-            </tr>
-            <tr>
-                <td><%=ingredient.name.capitalize%></td>
-                <td><%=ingredient.category.capitalize%></td>
-                <td><%=ingredient.quantity%></td>
-                <td><%=ingredient.units.capitalize%></td>
-            </tr>
-        </table> 
-        <%end%> 
+        <div class= 'col'>
+            <table class = 'table'>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                </tr>
+                <tr>
+                    <td><%=@recipe.title.capitalize%></td>
+                    <td><%=@recipe.category.capitalize%></td>
+                </tr>
+            </table>
         </div>
+    </div><br>
+    <div class = 'row'>   
+        <div class = 'col-5'>
+            <% @recipe.ingredients.each do | ingredient |%>
+                <table class = 'table'>
+                    <tr class>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Units</th>
+                    </tr>
+                    <tr>
+                        <td><%=ingredient.name.capitalize%></td>
+                        <td><%=ingredient.category.capitalize%></td>
+                        <td><%=ingredient.quantity%></td>
+                        <td><%=ingredient.units.capitalize%></td>
+                    </tr>
+                </table> 
+            <%end%> 
+        </div>
+        <div class = 'col-1'>
+        </div>
+        <div class = 'col-6'>
+            <% @recipe.steps.each do | step |%>
+                <h4>Recipe Steps</h4>
+                <ol class = 'table'>
+                    <li><%=step.description.capitalize%></li>
+                </ol> 
+            <%end%> 
+        </div>
+    </div>
     </div>
 
 
