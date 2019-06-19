@@ -16,7 +16,7 @@
     <h3>Your Recipes:</h3>
     <ul>
         <%@user.recipes.each do |recipe|%>
-            <li><label><strong>Recipe:</strong></label><%=recipe.title%> <label><strong>Category:</strong></label><%=recipe.category%></li>
+            <li><label><strong>Recipe:</strong></label><a href="/recipes/<%=recipe.id%>"><%=recipe.title%></a> <label><strong>Category:</strong></label><%=recipe.category%></li>
         <%end%>
     </ul>
 </div>
