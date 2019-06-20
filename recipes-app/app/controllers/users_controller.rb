@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :check_cookie_expiry, only: [:create_account, :login, :sign_up, :authenticate]
 
     def create_account 
         new_user = User.new(user_params[:user])
