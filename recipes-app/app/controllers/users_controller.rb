@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :check_cookie_expiry, only: [:create_account, :login, :sign_up, :authenticate]
 
     def create_account 
         new_user = User.new(user_params[:user])
@@ -52,12 +53,20 @@ class UsersController < ApplicationController
         user = User.find_by(username: user_params[:user][:username])
         if user != nil && user.authenticate(user_params[:user][:password_hash])
             session[:user_id] = user.id
+            session[:expires_at] = Time.current + 5.minutes
             redirect_to "/index/#{user.id}"
         else
             user.errors.add(:login_errors, "Incorrect Username or Password. Please try again")
             flash[:errors] = user.errors.messages
             redirect_to "/login"
         end
+    end
+
+    # skip_before_action :verify_authenticity_token
+
+    def refresh_session
+        session[:expires_at] = Time.current + 5.minutes
+        puts "Refreshing dat session"
     end
 
     def user_params
