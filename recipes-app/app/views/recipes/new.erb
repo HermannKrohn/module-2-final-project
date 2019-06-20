@@ -28,7 +28,7 @@
         <div class = 'row container'>
             <div id = 'ingredients' class = 'col-4'>
             </div>
-            <div id = 'steps' class = 'col-8'>
+            <div id = 'steps' class = 'col-8' style = 'max-width: 1500px;'>
             </div>
         </div>
         
@@ -80,7 +80,7 @@
                 var w = document.createElement("TEXTAREA");
 
                 w.setAttribute("type", "textarea");
-                w.setAttribute("style", "width: 950px; height: 100px;")
+                w.setAttribute("style", "max-width: 900px; height: 100px;")
                 w.setAttribute("class", "form-control")
                 w.setAttribute("name", "steps[descriptions][]");
                 w.setAttribute("placeholder", "description");
