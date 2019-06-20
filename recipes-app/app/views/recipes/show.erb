@@ -2,12 +2,16 @@
 
 <body class = container-fluid>
     <h1><%=@recipe.title.capitalize%> Recipe</h1>
-    <div>
-        <a href = "/recipes/<%=@recipe.id%>/edit"><button class = 'btn btn-primary'>Edit</button></a>
-        <form method = 'POST' action = "/delete/<%=@recipe.id%>">
-            <input type = 'hidden' name = '_method' value = 'DELETE'>
-                <button class = 'btn btn-danger'>Delete</button>
-        </form>
+    <div class = 'row'>
+        <div class = 'col-1'>
+            <a href = "/recipes/<%=@recipe.id%>/edit"><button class = 'btn btn-primary'>Edit</button></a>
+        </div>
+        <div class = 'col-1'>
+            <form method = 'POST' action = "/delete/<%=@recipe.id%>">
+                <input type = 'hidden' name = '_method' value = 'DELETE'>
+                    <button class = 'btn btn-danger'>Delete</button>
+            </form>
+        </div>
     </div>
     <hr>
     <div class = 'row'>
@@ -25,35 +29,37 @@
         </div>
     </div><br>
     <div class = 'row'>   
-        <div class = 'col-5'>
-            <% @recipe.ingredients.each do | ingredient |%>
-                <table class = 'table'>
+        <div class = 'col-5' style = "min-width: 100px;">
+            <h4>Ingredients</h4>
+        
+                <table class = 'table' style = 'text-align: center;'>
                     <tr class>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                        <th>Units</th>
+                        <th width="25%">Name</th>
+                        <th width="25%">Category</th>
+                        <th width="25%">Quantity</th>
+                        <th width="25%">Units</th>
                     </tr>
+            <% @recipe.ingredients.each do | ingredient |%>
+                <table class = 'table' style = 'text-align: center;'>
                     <tr>
-                        <td><%=ingredient.name.capitalize%></td>
-                        <td><%=ingredient.category.capitalize%></td>
-                        <td><%=ingredient.quantity%></td>
-                        <td><%=ingredient.units.capitalize%></td>
+                        <td width="25%"><%=ingredient.name.capitalize%></td>
+                        <td width="25%"><%=ingredient.category.capitalize%></td>
+                        <td width="25%"><%=ingredient.quantity%></td>
+                        <td width="25%"><%=ingredient.units.capitalize%></td>
                     </tr>
-                </table> 
+                </table>
             <%end%> 
         </div>
         <div class = 'col-1'>
         </div>
-        <div class = 'col-6'>
-            <% @recipe.steps.each do | step |%>
-                <h4>Recipe Steps</h4>
-                <ol class = 'table'>
+        <div class = 'col-6 ' style = "min-width: 100px;">
+            <h4>Recipe Steps</h4>
+            <ol class = 'table'>
+                <% @recipe.steps.each do | step |%>
                     <li><%=step.description.capitalize%></li>
-                </ol> 
-            <%end%> 
+                <%end%> 
+            </ol> 
         </div>
-    </div>
     </div>
     
 

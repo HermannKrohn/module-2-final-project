@@ -43,23 +43,51 @@ class RecipesController < ApplicationController
 
     def create
         byebug
-        @recipe = Recipe.new(recipe_params)
+
+        @recipe = Recipe.new(recipe_params[:recipe])
         if @recipe.valid?
             @recipe.save
             @userrecipe = UserRecipe.new(user_id: session[:user_id], recipe_id: @recipe.id)
             @userrecipe.save
-            redirect_to "/index/#{session[:user_id]}"
+
         else
             flash[:form_errors] = @recipe.errors.messages
             redirect_to "/index/#{session[:user_id]}"
         end
+
+        i = 0
+        while i < recipe_params[:ingredients][:names].length
+            @ingredient = Ingredient.new(name: recipe_params[:ingredients][:names][i], category: recipe_params[:ingredients][:categories][i], quantity: recipe_params[:ingredients][:quantities][i], units: recipe_params[:ingredients][:units][i])
+            if @ingredient.valid?
+                @ingredient.save
+                @recipeingredient = RecipeIngredient.new(recipe_id: @recipe.id, ingredient_id: @ingredient.id)
+                @recipeingredient.save
+                i += 1
+            else
+                @recipe.destroy
+                flash[:form_errors] = @ingredient.errors.messages
+                redirect_to "/index/#{session[:user_id]}"
+                return
+            end
+        end
+
+        i = 0
+        while i < recipe_params[:steps][:descriptions].length
+            @step = Step.create(description: recipe_params[:steps][:descriptions][i])
+            @recipestep = RecipeStep.new(recipe_id: @recipe.id, step_id: @step.id)
+            @recipestep.save
+            i += 1
+        end
+
+        redirect_to "/index/#{session[:user_id]}"
+
     end
 
     def update
         # byebug
 
         @recipe = Recipe.find(params[:id])
-        @recipe.assign_attributes(recipe_params)
+        @recipe.assign_attributes(recipe_params[:recipe])
         if @recipe.valid?
             @recipe.save
             redirect_to "/index/#{session[:user_id]}"
@@ -96,3 +124,4 @@ class RecipesController < ApplicationController
     end
 
 end
+
