@@ -7,7 +7,5 @@ class Ingredient < ApplicationRecord
 
     validates :category, presence: true
     validates :name, presence: true
-    validates :units, presence: true
-
 
 end

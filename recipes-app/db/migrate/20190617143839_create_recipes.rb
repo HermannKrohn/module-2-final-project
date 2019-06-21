@@ -3,7 +3,6 @@ class CreateRecipes < ActiveRecord::Migration[5.2]
     create_table :recipes do |t|
       t.string :title
       t.string :category
-      t.string :picture_url
 
       t.timestamps
     end

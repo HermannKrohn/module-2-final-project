@@ -1,50 +1,22 @@
-
-<body>
 <h1><%=@user.first_name%> <%=@user.last_name%>'s Dashboard</h1>
 <hr>
 <br>
 
-<div class = 'row'>
-    <a href="/recipes/new"><button class = 'btn btn-primary' style = 'margin-bottom: 10px; margin-left: 10px; margin-right: 20px;'>Create New Recipe</button></a>
+<div>
+    <a href="/recipes/new"><button>Create New Recipe</button></a>
+    <form method="POST" action="/search-user">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <input type="text" name="user[username]" placeholder="Search User">
+    <form>
 </div>
 
 <br>
 
 <div>
     <h3>Your Recipes:</h3>
-    <div align = 'center'>
+    <ul>
         <%@user.recipes.each do |recipe|%>
-            <div class = 'row' style = 'margin-top: 10px; margin-bottom: 10px;'>
-                <div class = 'col-12'>
-                    <a href = '/recipes/<%=recipe.id%>' style = 'color: black; text-decoration: none;'><div align = 'center'>
-                        <div class="card" style="width:800px; height: 300px; overflow: hidden;">
-                            <div class = 'row'>
-                                <div class = 'col'>
-                                    <img class="card-img-top" src="<%=recipe.picture_url%>" alt="<%=recipe.picture_url%>" >
-                                </div>
-                                <div align = 'left' class = 'col'>
-                                    <h4 class="card-title"><%=recipe.title.capitalize%></h4>
-                                    <%begin%>
-                                    <h6>Steps</h6>
-                                    <ul>
-                                        <li><%=recipe.steps[0].description%></li>
-                                        <li><%=recipe.steps[1].description%></li>
-                                    </ul><br>
-                                    <h6>Ingredients</h6>
-                                    <ul>
-                                        <li><%=recipe.ingredients[0].name%></li>
-                                        <li><%=recipe.ingredients[1].name%></li>
-                                    </ul><br>
-                                    <%rescue%>
-                                    <%end%>
-                                </div>
-                            </div>
-                        </div>
-                    </div></a>
-                </div>
-                <br>
-            </div>
+            <li><label><strong>Recipe:</strong></label><a href="/recipes/<%=recipe.id%>"><%=recipe.title%></a> <label><strong>Category:</strong></label><%=recipe.category%></li>
         <%end%>
-    </div>
+    </ul>
 </div>
-

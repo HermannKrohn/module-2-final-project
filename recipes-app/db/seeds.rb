@@ -28,12 +28,10 @@
     recipe_categories = ['casserole', 'salad', 'baked', 'fried', 'raw', 'sushi', 'asian', 'seafood', 'grilled', 'mexican', 'african']
 
     steps = ['first', 'second', 'third', 'fourth', 'fifth']
-    
-    pictures = ['https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80', 'https://images.unsplash.com/photo-1529042410759-befb1204b468?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=666&q=80', 'https://images.unsplash.com/photo-1453831362806-3d5577f014a4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2577&q=80', 'https://images.unsplash.com/photo-1504185945330-7a3ca1380535?ixlib=rb-1.2.1&auto=format&fit=crop&w=642&q=80', 'https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=987&q=80', 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80', 'https://images.unsplash.com/photo-1532768641073-503a250f9754?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80']
 
     15.times do
         ingredient = Ingredient.create(name: Faker::Food.ingredient, category: categories[rand(0..4)], quantity: quantities[rand(0...7)], units: units[rand(0..5)])
-        recipe = Recipe.create(title: Faker::Food.dish, category: recipe_categories[rand(0..10)], picture_url: pictures[rand(0..7)])
+        recipe = Recipe.create(title: Faker::Food.dish, category: recipe_categories[rand(0..10)])
         RecipeIngredient.create(recipe_id: recipe.id , ingredient_id: ingredient.id )
         step = Step.create(description: steps[rand(0..4)])
         RecipeStep.create(recipe_id: recipe.id, step_id: step.id)

@@ -2,7 +2,7 @@
 <head>
     
 </head>
-
+<body class = 'container-fluid' style = "background-color: #CEE6DA">
 
     <h1>Create a Recipe</h1>
     <form id="form" method = 'POST' action = '/recipes'>
@@ -12,23 +12,19 @@
         <hr>
 
         <div>
-            <label><strong>Title: </strong></label>
+            <label><h5>Title: </h5></label>
             <input class = 'form-control' type = 'text' name ="recipe[title]" placeholder = 'Enter Recipe Title'>
         </div><br>
         <div>
-            <label><strong>Category: </strong></label>
+            <label><h5>Category: </h5></label>
             <input class = 'form-control' type = 'text' name = 'recipe[category]' placeholder = 'Enter Recipe Category'>
-        </div><br>
-        <div>
-            <label><strong>Picture: </strong></label>
-            <input class = 'form-control' type = 'text' name = 'recipe[picture_url]' placeholder = 'Enter Picture URL'>
         </div><br>
         <div class = 'row container'>
             <div class = 'col-4'>
-                <label><strong>Ingredients:</strong></label>
+                <h5>Ingredients:</h5>
             </div>
             <div class = 'col-8'>
-                <label><strong>Steps:</strong></label>
+                <h5>Steps:</h5>
             </div>
         </div>
         <div class = 'row container'>
@@ -43,26 +39,25 @@
     <button class = 'btn btn-primary' onclick="myStepFunction()">Add recipe step</button>
 
 
-         <script>
+        <script>
 
-            function myRemoveIngredientFunction(element) {
-
-                var what_to_delete = document.getElementById()
-                removeElement(id_clicked)
+            function myRemoveIngredientFunction(ingredientIDThingy) {
+                const element = document.getElementById('ing' + ingredientIDThingy)
+                element.parentNode.removeChild(element)
             }
 
-            function myRemoveStepFunction(element) {
-
-                var what_to_delete = document.getElementById()
-                removeElement(id_clicked)
+            function myRemoveStepFunction(stepIDThingy) {
+                const element = document.getElementById('step' + stepIDThingy)
+                element.parentNode.removeChild(element)
             }
 
             var ingredientCounter = 1;
             var ingredientDivCounter = 1;
             function myIngredientFunction() {
+                const idOfThisThingy = ingredientDivCounter
                
                 var ingredient_block = document.createElement("DIV");
-                var xxx = document.createElement("BUTTON")
+                var xxx = document.createElement("DIV")
                 var v = document.createElement("LABEL");
                 var w = document.createElement("INPUT");
                 var x = document.createElement("INPUT");
@@ -71,10 +66,10 @@
 
                 
 
-                ingredient_block.setAttribute("id", `ing${ingredientDivCounter}`)
+                ingredient_block.setAttribute("id", `ing${idOfThisThingy}`)
                 xxx.setAttribute("class", "btn btn-danger")
                 xxx.setAttribute("style", "margin-left: 15px; margin-bottom: 10px; margin-top: 10px;")
-                xxx.setAttribute("onclick", "myRemoveIngredientFunction(this)")
+                xxx.addEventListener("click", function() {myRemoveIngredientFunction(idOfThisThingy)})
                 w.setAttribute("type", "text");
                 w.setAttribute("class", "form-control");
                 w.setAttribute("name", "ingredients[names][]");
@@ -93,7 +88,7 @@
                 z.setAttribute("placeholder", "units");
 
                 const get_element_ingredients = document.getElementById('ingredients');
-                const new_div = document.getElementById(`ing${ingredientDivCounter}`);
+                const new_div = ingredient_block
 
                 get_element_ingredients.appendChild(ingredient_block);
                 new_div.appendChild(v).innerHTML = `<strong>Ingredient ${ingredientCounter}</strong>`;
@@ -143,3 +138,4 @@
         
 
 
+</body>
