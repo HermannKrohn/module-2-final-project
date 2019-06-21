@@ -41,24 +41,23 @@
 
         <script>
 
-            function myRemoveIngredientFunction(element) {
-
-                var what_to_delete = document.getElementById()
-                removeElement(id_clicked)
+            function myRemoveIngredientFunction(ingredientIDThingy) {
+                const element = document.getElementById('ing' + ingredientIDThingy)
+                element.parentNode.removeChild(element)
             }
 
-            function myRemoveStepFunction(element) {
-
-                var what_to_delete = document.getElementById()
-                removeElement(id_clicked)
+            function myRemoveStepFunction(stepIDThingy) {
+                const element = document.getElementById('step' + stepIDThingy)
+                element.parentNode.removeChild(element)
             }
 
             var ingredientCounter = 1;
             var ingredientDivCounter = 1;
             function myIngredientFunction() {
+                const idOfThisThingy = ingredientDivCounter
                
                 var ingredient_block = document.createElement("DIV");
-                var xxx = document.createElement("BUTTON")
+                var xxx = document.createElement("DIV")
                 var v = document.createElement("LABEL");
                 var w = document.createElement("INPUT");
                 var x = document.createElement("INPUT");
@@ -67,29 +66,29 @@
 
                 
 
-                ingredient_block.setAttribute("id", `ing${ingredientDivCounter}`)
+                ingredient_block.setAttribute("id", `ing${idOfThisThingy}`)
                 xxx.setAttribute("class", "btn btn-danger")
                 xxx.setAttribute("style", "margin-left: 15px; margin-bottom: 10px; margin-top: 10px;")
-                xxx.setAttribute("onclick", "myRemoveIngredientFunction(this)")
+                xxx.addEventListener("click", function() {myRemoveIngredientFunction(idOfThisThingy)})
                 w.setAttribute("type", "text");
                 w.setAttribute("class", "form-control");
                 w.setAttribute("name", "ingredients[names][]");
-                w.setAttribute("value", "name");
+                w.setAttribute("placeholder", "name");
                 x.setAttribute("type", "text");
                 x.setAttribute("class", "form-control");
                 x.setAttribute("name", "ingredients[categories][]");
-                x.setAttribute("value", "category");
+                x.setAttribute("placeholder", "category");
                 y.setAttribute("type", "text");
                 y.setAttribute("class", "form-control");
                 y.setAttribute("name", "ingredients[quantities][]");
-                y.setAttribute("value", "quantity");
+                y.setAttribute("placeholder", "quantity");
                 z.setAttribute("type", "text");
                 z.setAttribute("class", "form-control");
                 z.setAttribute("name", "ingredients[units][]");
-                z.setAttribute("value", "units");
+                z.setAttribute("placeholder", "units");
 
                 const get_element_ingredients = document.getElementById('ingredients');
-                const new_div = document.getElementById(`ing${ingredientDivCounter}`);
+                const new_div = ingredient_block
 
                 get_element_ingredients.appendChild(ingredient_block);
                 new_div.appendChild(v).innerHTML = `<strong>Ingredient ${ingredientCounter}</strong>`;
