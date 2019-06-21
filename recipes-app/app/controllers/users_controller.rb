@@ -62,7 +62,10 @@ class UsersController < ApplicationController
         end
     end
 
-    # skip_before_action :verify_authenticity_token
+    def logout
+        session[:user_id] = nil
+        redirect_to "/login"
+    end
 
     def refresh_session
         session[:expires_at] = Time.current + 5.minutes
