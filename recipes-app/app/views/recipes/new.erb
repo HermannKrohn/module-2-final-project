@@ -2,18 +2,22 @@
 <head>
     
 </head>
-<body class = 'container-fluid' style = "background-color: yellow">
+<body class = 'container-fluid' style = "background-color: #CEE6DA">
+
     <h1>Create a Recipe</h1>
-    <br><button class = 'btn btn-primary'>Create New Recipe</button>
-    <hr>
     <form id="form" method = 'POST' action = '/recipes'>
+        <br><button class = 'btn btn-primary'>Create New Recipe</button><br><br>
+            <a href = '/index/<%=session[:user_id]%>'><button class = 'btn btn-primary' style = 'margin-bottom: 5px;'>Return to user page</button></a>
+
+        <hr>
+
         <div>
-            <label>Title: </label>
-            <input class = 'form-control' type = 'text' name = 'title' placeholder = 'Enter Recipe Title'>
-        </div>
+            <label><h5>Title: </h5></label>
+            <input class = 'form-control' type = 'text' name ="recipe[title]" placeholder = 'Enter Recipe Title'>
+        </div><br>
         <div>
-            <label>Category: </label>
-            <input class = 'form-control' type = 'text' name = 'category' placeholder = 'Enter Recipe Category'>
+            <label><h5>Category: </h5></label>
+            <input class = 'form-control' type = 'text' name = 'recipe[category]' placeholder = 'Enter Recipe Category'>
         </div><br>
         <div class = 'row container'>
             <div class = 'col-4'>
@@ -26,7 +30,7 @@
         <div class = 'row container'>
             <div id = 'ingredients' class = 'col-4'>
             </div>
-            <div id = 'steps' class = 'col-8'>
+            <div id = 'steps' class = 'col-8' style = 'max-width: 1500px;'>
             </div>
         </div>
         
@@ -36,57 +40,98 @@
 
 
         <script>
+
+            function myRemoveIngredientFunction(element) {
+
+                var what_to_delete = document.getElementById()
+                removeElement(id_clicked)
+            }
+
+            function myRemoveStepFunction(element) {
+
+                var what_to_delete = document.getElementById()
+                removeElement(id_clicked)
+            }
+
             var ingredientCounter = 1;
-            var stepCounter = 1;
+            var ingredientDivCounter = 1;
             function myIngredientFunction() {
                
+                var ingredient_block = document.createElement("DIV");
+                var xxx = document.createElement("BUTTON")
                 var v = document.createElement("LABEL");
                 var w = document.createElement("INPUT");
                 var x = document.createElement("INPUT");
                 var y = document.createElement("INPUT");
                 var z = document.createElement("INPUT");
 
+                
+
+                ingredient_block.setAttribute("id", `ing${ingredientDivCounter}`)
+                xxx.setAttribute("class", "btn btn-danger")
+                xxx.setAttribute("style", "margin-left: 15px; margin-bottom: 10px; margin-top: 10px;")
+                xxx.setAttribute("onclick", "myRemoveIngredientFunction(this)")
                 w.setAttribute("type", "text");
-                w.setAttribute("class", "form-control")
-                w.setAttribute("name", "name");
+                w.setAttribute("class", "form-control");
+                w.setAttribute("name", "ingredients[names][]");
                 w.setAttribute("value", "name");
                 x.setAttribute("type", "text");
-                x.setAttribute("class", "form-control")
-                x.setAttribute("name", "category");
+                x.setAttribute("class", "form-control");
+                x.setAttribute("name", "ingredients[categories][]");
                 x.setAttribute("value", "category");
                 y.setAttribute("type", "text");
-                y.setAttribute("class", "form-control")
-                y.setAttribute("name", "quantity");
+                y.setAttribute("class", "form-control");
+                y.setAttribute("name", "ingredients[quantities][]");
                 y.setAttribute("value", "quantity");
                 z.setAttribute("type", "text");
-                z.setAttribute("class", "form-control")
-                z.setAttribute("name", "units");
+                z.setAttribute("class", "form-control");
+                z.setAttribute("name", "ingredients[units][]");
                 z.setAttribute("value", "units");
 
-                document.getElementById('ingredients').appendChild(v).innerHTML = `<strong>Ingredient ${ingredientCounter}</strong>`;
-                document.getElementById('ingredients').appendChild(w);
-                document.getElementById('ingredients').appendChild(x);
-                document.getElementById('ingredients').appendChild(y);
-                document.getElementById('ingredients').appendChild(z);
+                const get_element_ingredients = document.getElementById('ingredients');
+                const new_div = document.getElementById(`ing${ingredientDivCounter}`);
+
+                get_element_ingredients.appendChild(ingredient_block);
+                new_div.appendChild(v).innerHTML = `<strong>Ingredient ${ingredientCounter}</strong>`;
+                new_div.appendChild(xxx).innerHTML = `Remove ingredient`;
+                new_div.appendChild(w);
+                new_div.appendChild(x);
+                new_div.appendChild(y);
+                new_div.appendChild(z);
 
                 ingredientCounter += 1;
+                ingredientDivCounter += 1;
                 }
 
+            let stepCounter = 1
+            let stepDivCounter = 1
             function myStepFunction() {
-                let counter = 1
+                
+
+                var step_block = document.createElement("DIV");
+                var xxx = document.createElement("BUTTON")
                 var v = document.createElement("LABEL");
                 var w = document.createElement("TEXTAREA");
 
+                step_block.setAttribute("id", `step${stepDivCounter}`);
+                xxx.setAttribute("class", "btn btn-danger")
+                xxx.setAttribute("style", "margin-left: 15px; margin-bottom: 10px; margin-top: 10px;")
+                xxx.setAttribute("onclick", "myRemoveStepFunction(this)")
                 w.setAttribute("type", "textarea");
-                w.setAttribute("style", "width: 1000px; height: 100px;")
-                w.setAttribute("class", "form-control")
-                w.setAttribute("name", "descriptions[]");
+                w.setAttribute("style", "max-width: 900px; height: 100px;");
+                w.setAttribute("class", "form-control");
+                w.setAttribute("name", "steps[descriptions][]");
                 w.setAttribute("placeholder", "description");
 
-                document.getElementById('steps').appendChild(v).innerHTML = `<strong>Step ${stepCounter}</strong>`;
-                document.getElementById('steps').appendChild(w);
+                const new_step_div = document.getElementById(`step${stepDivCounter}`)
 
-                stepCounter++
+                document.getElementById('steps').appendChild(step_block);
+                new_step_div.appendChild(v).innerHTML = `<strong>Step ${stepCounter}</strong>`;
+                new_step_div.appendChild(xxx).innerHTML = `Remove step`;
+                new_step_div.appendChild(w);
+
+                stepCounter += 1;
+                stepDivCounter += 1;
                 }
 
 
