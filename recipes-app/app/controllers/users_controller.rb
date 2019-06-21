@@ -7,6 +7,7 @@ class UsersController < ApplicationController
             new_user.password_hash = new_user.hash_password(new_user.password_hash)
             new_user.save
             session[:user_id] = new_user.id
+            session[:expires_at] = Time.current + 5.minutes
             redirect_to "/index/#{new_user.id}"
         else
             flash[:errors] = new_user.errors.messages
