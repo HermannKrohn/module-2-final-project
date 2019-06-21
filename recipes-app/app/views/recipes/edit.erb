@@ -1,7 +1,8 @@
 
 
-<body class = 'container-fluid'>
-    <h1>Edit <%=@recipe.title.capitalize%></h1><br>
+<body class = 'container-fluid' style = "background-color: #CEE6DA">
+    <h1>Edit <%=@recipe.title.capitalize%> recipe</h1><br>
+    <a href = '/index/<%=session[:user_id]%>'><button class = 'btn btn-primary' style = 'margin-bottom: 5px;'>Return to user page</button></a>
 
     <form method = 'POST' action = '/recipes/<%=@recipe.id%>'>
         <input type = 'hidden' name = '_method' value = 'PATCH'>
@@ -11,11 +12,11 @@
 
             <div>
                 <label>Title: </label>
-                <input class = 'form-control' type = 'text' name = 'recipe[:title]' value = '<%=@recipe.title%>'>
+                <input class = 'form-control' type = 'text' name = 'recipe[title]' value = '<%=@recipe.title%>'>
             </div>
             <div>
                 <label>Category: </label>
-                <input class = 'form-control' type = 'text' name = 'recipe[:category]' value = '<%=@recipe.category%>'>
+                <input class = 'form-control' type = 'text' name = 'recipe[category]' value = '<%=@recipe.category%>'>
             </div><br>
            <div class = 'row container'>
             <div class = 'col-4'>
@@ -30,10 +31,10 @@
                 <%x =1 %>
                     <%@recipe.ingredients.each do | ingredient |%>
                         <label><strong>Ingredient <%=x%></strong></label>
-                        <input class = 'form-control' type = 'text' name = 'ingredients[:name]' value = '<%=ingredient.name%>'>
-                        <input class = 'form-control' type = 'text' name = 'ingredients[:name]' value = '<%=ingredient.category%>'>
-                        <input class = 'form-control' type = 'text' name = 'ingredients[:name]' value = '<%=ingredient.quantity%>'>
-                        <input class = 'form-control' type = 'text' name = 'ingredients[:name]' value = '<%=ingredient.units%>'>
+                        <input class = 'form-control' type = 'text' name = 'ingredients[names][]' value = '<%=ingredient.name%>'>
+                        <input class = 'form-control' type = 'text' name = 'ingredients[categories][]' value = '<%=ingredient.category%>'>
+                        <input class = 'form-control' type = 'text' name = 'ingredients[quantities][]' value = '<%=ingredient.quantity%>'>
+                        <input class = 'form-control' type = 'text' name = 'ingredients[units][]' value = '<%=ingredient.units%>'>
                         <%x += 1%>
                     <%end%>
             </div>
@@ -42,7 +43,7 @@
                 <%y = 1%>
                 <%@recipe.steps.each do | step |%>
                         <label><strong>Step <%=y%></strong></label>
-                        <input class = 'form-control' type = 'textarea' name = 'steps[:description]' value = '<%=step.description%>'>
+                        <input class = 'form-control' type = 'textarea' name = 'steps[descriptions][]' value = '<%=step.description%>'>
                         <%y += 1%>
                 <%end%>
             </div>
@@ -66,57 +67,98 @@
 
 
         <script>
+
+            function myRemoveIngredientFunction(element) {
+
+                var what_to_delete = document.getElementById()
+                removeElement(id_clicked)
+            }
+
+            function myRemoveStepFunction(element) {
+
+                var what_to_delete = document.getElementById()
+                removeElement(id_clicked)
+            }
+
             var ingredientCounter = 1;
-            var stepCounter = 1;
+            var ingredientDivCounter = 1;
             function myIngredientFunction() {
                
+                var ingredient_block = document.createElement("DIV");
+                var xxx = document.createElement("BUTTON")
                 var v = document.createElement("LABEL");
                 var w = document.createElement("INPUT");
                 var x = document.createElement("INPUT");
                 var y = document.createElement("INPUT");
                 var z = document.createElement("INPUT");
 
+                
+
+                ingredient_block.setAttribute("id", `ing${ingredientDivCounter}`)
+                xxx.setAttribute("class", "btn btn-danger")
+                xxx.setAttribute("style", "margin-left: 15px; margin-bottom: 10px; margin-top: 10px;")
+                xxx.setAttribute("onclick", "myRemoveIngredientFunction(this)")
                 w.setAttribute("type", "text");
-                w.setAttribute("class", "form-control")
-                w.setAttribute("name", "ingredients[names][]");
+                w.setAttribute("class", "form-control");
+                w.setAttribute("name", "new_ingredients[names][]");
                 w.setAttribute("value", "name");
                 x.setAttribute("type", "text");
-                x.setAttribute("class", "form-control")
-                x.setAttribute("name", "ingredients[categories][]");
+                x.setAttribute("class", "form-control");
+                x.setAttribute("name", "new_ingredients[categories][]");
                 x.setAttribute("value", "category");
                 y.setAttribute("type", "text");
-                y.setAttribute("class", "form-control")
-                y.setAttribute("name", "ingredients[quantities][]");
+                y.setAttribute("class", "form-control");
+                y.setAttribute("name", "new_ingredients[quantities][]");
                 y.setAttribute("value", "quantity");
                 z.setAttribute("type", "text");
-                z.setAttribute("class", "form-control")
-                z.setAttribute("name", "ingredients[units][]");
+                z.setAttribute("class", "form-control");
+                z.setAttribute("name", "new_ingredients[units][]");
                 z.setAttribute("value", "units");
 
-                document.getElementById('ingredients').appendChild(v).innerHTML = `<strong>Ingredient ${ingredientCounter}</strong>`;
-                document.getElementById('ingredients').appendChild(w);
-                document.getElementById('ingredients').appendChild(x);
-                document.getElementById('ingredients').appendChild(y);
-                document.getElementById('ingredients').appendChild(z);
+                const get_element_ingredients = document.getElementById('ingredients');
+                const new_div = document.getElementById(`ing${ingredientDivCounter}`);
+
+                get_element_ingredients.appendChild(ingredient_block);
+                new_div.appendChild(v).innerHTML = `<strong>Ingredient ${ingredientCounter}</strong>`;
+                new_div.appendChild(xxx).innerHTML = `Remove ingredient`;
+                new_div.appendChild(w);
+                new_div.appendChild(x);
+                new_div.appendChild(y);
+                new_div.appendChild(z);
 
                 ingredientCounter += 1;
+                ingredientDivCounter += 1;
                 }
 
+            let stepCounter = 1
+            let stepDivCounter = 1
             function myStepFunction() {
-                let counter = 1
+                
+
+                var step_block = document.createElement("DIV");
+                var xxx = document.createElement("BUTTON")
                 var v = document.createElement("LABEL");
                 var w = document.createElement("TEXTAREA");
 
+                step_block.setAttribute("id", `step${stepDivCounter}`);
+                xxx.setAttribute("class", "btn btn-danger")
+                xxx.setAttribute("style", "margin-left: 15px; margin-bottom: 10px; margin-top: 10px;")
+                xxx.setAttribute("onclick", "myRemoveStepFunction(this)")
                 w.setAttribute("type", "textarea");
-                w.setAttribute("style", "max-width: 900px; height: 100px;")
-                w.setAttribute("class", "form-control")
-                w.setAttribute("name", "steps[descriptions][]");
+                w.setAttribute("style", "max-width: 900px; height: 100px;");
+                w.setAttribute("class", "form-control");
+                w.setAttribute("name", "new_steps[descriptions][]");
                 w.setAttribute("placeholder", "description");
 
-                document.getElementById('steps').appendChild(v).innerHTML = `<strong>Step ${stepCounter}</strong>`;
-                document.getElementById('steps').appendChild(w);
+                const new_step_div = document.getElementById(`step${stepDivCounter}`)
 
-                stepCounter++
+                document.getElementById('steps').appendChild(step_block);
+                new_step_div.appendChild(v).innerHTML = `<strong>Step ${stepCounter}</strong>`;
+                new_step_div.appendChild(xxx).innerHTML = `Remove step`;
+                new_step_div.appendChild(w);
+
+                stepCounter += 1;
+                stepDivCounter += 1;
                 }
 
 
