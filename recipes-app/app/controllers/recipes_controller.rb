@@ -42,7 +42,6 @@ class RecipesController < ApplicationController
     end
 
     def create
-        byebug
 
         @recipe = Recipe.new(recipe_params[:recipe])
         if @recipe.valid?
@@ -89,11 +88,12 @@ class RecipesController < ApplicationController
         @recipe.assign_attributes(recipe_params[:recipe])
         if @recipe.valid?
             @recipe.save
-            @userrecipe = UserRecipe.new(user_id: session[:user_id], recipe_id: @recipe.id)
-            @userrecipe.save
+            # @userrecipe = UserRecipe.new(user_id: session[:user_id], recipe_id: @recipe.id)
+            # @userrecipe.save
         else
             flash[:form_errors] = @recipe.errors.messages
             redirect_to "/recipes/#{@recipe.id}/edit"
+            return
         end
 
         i = 0
@@ -102,9 +102,9 @@ class RecipesController < ApplicationController
             @ingredient.assign_attributes(name: recipe_params[:ingredients][:names][i], category: recipe_params[:ingredients][:categories][i], quantity: recipe_params[:ingredients][:quantities][i], units: recipe_params[:ingredients][:units][i])
             if @ingredient.valid?
                 @ingredient.save
-                @recipeingredient = @recipe.recipe_ingredients[i]
-                @recipeingredient.assign_attributes(recipe_id: @recipe.id, ingredient_id: @ingredient.id)
-                @recipeingredient.save
+                # @recipeingredient = @recipe.recipe_ingredients[i]
+                # @recipeingredient.assign_attributes(recipe_id: @recipe.id, ingredient_id: @ingredient.id)
+                # @recipeingredient.save
                 i += 1
             else
                 @recipe.destroy
@@ -118,39 +118,44 @@ class RecipesController < ApplicationController
         while i < recipe_params[:steps][:descriptions].length
             @step = @recipe.steps[i]
             @step.assign_attributes(description: recipe_params[:steps][:descriptions][i])
-            @recipestep = @recipe.recipe_steps[i]
-            @recipestep.assign_attributes(recipe_id: @recipe.id, step_id: @step.id)
-            @recipestep.save
+            # @recipestep = @recipe.recipe_steps[i]
+            # @recipestep.assign_attributes(recipe_id: @recipe.id, step_id: @step.id)
+            # @recipestep.save
             i += 1
         end
 
-        i = 0
-        while i < recipe_params[:new_ingredients][:names].length
-            @ingredient = Ingredient.new(name: recipe_params[:new_ingredients][:names][i], category: recipe_params[:new_ingredients][:categories][i], quantity: recipe_params[:new_ingredients][:quantities][i], units: recipe_params[:new_ingredients][:units][i])
-            if @ingredient.valid?
-                @ingredient.save
-                @recipeingredient = RecipeIngredient.new(recipe_id: @recipe.id, ingredient_id: @ingredient.id)
-                @recipeingredient.save
-                i += 1
-            else
-                @recipe.destroy
-                flash[:form_errors] = @ingredient.errors.messages
-                redirect_to "/index/#{session[:user_id]}"
-                return
+        if recipe_params[:new_ingredients]
+            i = 0
+            while i < recipe_params[:new_ingredients][:names].length
+                @ingredient = Ingredient.new(name: recipe_params[:new_ingredients][:names][i], category: recipe_params[:new_ingredients][:categories][i], quantity: recipe_params[:new_ingredients][:quantities][i], units: recipe_params[:new_ingredients][:units][i])
+                if @ingredient.valid?
+                    @ingredient.save
+                    @recipeingredient = RecipeIngredient.new(recipe_id: @recipe.id, ingredient_id: @ingredient.id)
+                    @recipeingredient.save
+                    i += 1
+                    # redirect_to "/index/#{session[:user_id]}"
+
+                else
+                    @recipe.destroy
+                    flash[:form_errors] = @ingredient.errors.messages
+                    redirect_to "/index/#{session[:user_id]}"
+                    return
+                end
             end
         end
 
-        i = 0
-        while i < recipe_params[:new_steps][:descriptions].length
-            @step = Step.create(description: recipe_params[:new_steps][:descriptions][i])
-            @recipestep = RecipeStep.new(recipe_id: @recipe.id, step_id: @step.id)
-            @recipestep.save
-            i += 1
+        if recipe_params[:new_steps]
+            i = 0
+            while i < recipe_params[:new_steps][:descriptions].length
+                @step = Step.create(description: recipe_params[:new_steps][:descriptions][i])
+                @recipestep = RecipeStep.new(recipe_id: @recipe.id, step_id: @step.id)
+                @recipestep.save
+                i += 1
+            end
+            # redirect_to "/index/#{session[:user_id]}"
+            # return
         end
         redirect_to "/index/#{session[:user_id]}"
-
-
-
     end
 
     def destroy
