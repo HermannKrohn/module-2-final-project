@@ -28,9 +28,7 @@ class UsersController < ApplicationController
         if(flash[:errors])
             @errors = flash[:errors]
         else
-            @errors = {
-                "login_errors" => []
-            }
+            @errors = []
         end
     end
 
@@ -57,8 +55,8 @@ class UsersController < ApplicationController
             session[:expires_at] = Time.current + 5.minutes
             redirect_to "/index/#{user.id}"
         else
-            user.errors.add(:login_errors, "Incorrect Username or Password. Please try again")
-            flash[:errors] = user.errors.messages
+            # user.errors.add(:login_errors, "Incorrect Username or Password. Please try again")
+            flash[:errors] = ["Incorrect Username or Password. Please try again"]
             redirect_to "/login"
         end
     end
