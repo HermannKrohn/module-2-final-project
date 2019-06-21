@@ -11,26 +11,30 @@
 
 
             <div>
-                <label>Title: </label>
+                <label><strong>Title: </strong></label>
                 <input class = 'form-control' type = 'text' name = 'recipe[title]' value = '<%=@recipe.title%>'>
             </div>
             <div>
-                <label>Category: </label>
+                <label><strong>Category: </strong></label>
                 <input class = 'form-control' type = 'text' name = 'recipe[category]' value = '<%=@recipe.category%>'>
+            </div>
+            <div>
+                <label><strong>Picture: </strong></label>
+                <input class = 'form-control' type = 'text' name = 'recipe[picture_url]' value = '<%=@recipe.picture_url%>'>
             </div><br>
            <div class = 'row container'>
             <div class = 'col-4'>
-                <h5>Ingredients:</h5>
+                <label><strong>Ingredients:</strong></label>
             </div>
             <div class = 'col-8'>
-                <h5>Steps:</h5>
+                <label><strong>Steps:</strong></label>
             </div>
         </div>
         <div class = 'row container'>
             <div class = 'col-4'>
                 <%x =1 %>
                     <%@recipe.ingredients.each do | ingredient |%>
-                        <label><strong>Ingredient <%=x%></strong></label>
+                        <label>Ingredient <%=x%></label>
                         <input class = 'form-control' type = 'text' name = 'ingredients[names][]' value = '<%=ingredient.name%>'>
                         <input class = 'form-control' type = 'text' name = 'ingredients[categories][]' value = '<%=ingredient.category%>'>
                         <input class = 'form-control' type = 'text' name = 'ingredients[quantities][]' value = '<%=ingredient.quantity%>'>
@@ -42,7 +46,7 @@
             <div class = 'col-8' style = 'max-width: 1500px;'>
                 <%y = 1%>
                 <%@recipe.steps.each do | step |%>
-                        <label><strong>Step <%=y%></strong></label>
+                        <label>Step <%=y%></label>
                         <input class = 'form-control' type = 'textarea' name = 'steps[descriptions][]' value = '<%=step.description%>'>
                         <%y += 1%>
                 <%end%>

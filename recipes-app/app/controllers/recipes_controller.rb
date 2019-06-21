@@ -20,9 +20,9 @@ class RecipesController < ApplicationController
         if(flash[:form_errors])
             @errors = flash[:form_errors]
         else
-        @recipe = Recipe.find(params[:id])
+        # @recipe = Recipe.find(params[:id])
         end
-
+        @recipe = Recipe.find(params[:id])
     end
 
     def show
@@ -54,31 +54,36 @@ class RecipesController < ApplicationController
             redirect_to "/index/#{session[:user_id]}"
         end
 
+        if recipe_params[:ingredients]
+            i = 0
+                while i < recipe_params[:ingredients][:names].length
+                    @ingredient = Ingredient.new(name: recipe_params[:ingredients][:names][i], category: recipe_params[:ingredients][:categories][i], quantity: recipe_params[:ingredients][:quantities][i], units: recipe_params[:ingredients][:units][i])
+                    if @ingredient.valid?
+                        @ingredient.save
+                        @recipeingredient = RecipeIngredient.new(recipe_id: @recipe.id, ingredient_id: @ingredient.id)
+                        @recipeingredient.save
+                        i += 1
+                    else
+                        @recipe.destroy
+                        flash[:form_errors] = @ingredient.errors.messages
+                        redirect_to "/index/#{session[:user_id]}"
+                        return
+                    end
+                end
+        end 
+
+        if recipe_params[:steps]
+
         i = 0
-        while i < recipe_params[:ingredients][:names].length
-            @ingredient = Ingredient.new(name: recipe_params[:ingredients][:names][i], category: recipe_params[:ingredients][:categories][i], quantity: recipe_params[:ingredients][:quantities][i], units: recipe_params[:ingredients][:units][i])
-            if @ingredient.valid?
-                @ingredient.save
-                @recipeingredient = RecipeIngredient.new(recipe_id: @recipe.id, ingredient_id: @ingredient.id)
-                @recipeingredient.save
+            while i < recipe_params[:steps][:descriptions].length
+                @step = Step.create(description: recipe_params[:steps][:descriptions][i])
+                @recipestep = RecipeStep.new(recipe_id: @recipe.id, step_id: @step.id)
+                @recipestep.save
                 i += 1
-            else
-                @recipe.destroy
-                flash[:form_errors] = @ingredient.errors.messages
-                redirect_to "/index/#{session[:user_id]}"
-                return
             end
-        end
 
-        i = 0
-        while i < recipe_params[:steps][:descriptions].length
-            @step = Step.create(description: recipe_params[:steps][:descriptions][i])
-            @recipestep = RecipeStep.new(recipe_id: @recipe.id, step_id: @step.id)
-            @recipestep.save
-            i += 1
+            redirect_to "/index/#{session[:user_id]}"
         end
-
-        redirect_to "/index/#{session[:user_id]}"
 
     end
 
@@ -99,7 +104,10 @@ class RecipesController < ApplicationController
         i = 0
         while i < recipe_params[:ingredients][:names].length
             @ingredient = @recipe.ingredients[i]
-            @ingredient.assign_attributes(name: recipe_params[:ingredients][:names][i], category: recipe_params[:ingredients][:categories][i], quantity: recipe_params[:ingredients][:quantities][i], units: recipe_params[:ingredients][:units][i])
+            @ingredient.name = recipe_params[:ingredients][:names][i]
+            @ingredient.category = recipe_params[:ingredients][:categories][i]
+            @ingredient.quantity = recipe_params[:ingredients][:quantities][i]
+            @ingredient.units = recipe_params[:ingredients][:units][i]
             if @ingredient.valid?
                 @ingredient.save
                 # @recipeingredient = @recipe.recipe_ingredients[i]
@@ -117,7 +125,9 @@ class RecipesController < ApplicationController
         i = 0
         while i < recipe_params[:steps][:descriptions].length
             @step = @recipe.steps[i]
-            @step.assign_attributes(description: recipe_params[:steps][:descriptions][i])
+            @step.description = recipe_params[:steps][:descriptions][i]
+            @step.save
+
             # @recipestep = @recipe.recipe_steps[i]
             # @recipestep.assign_attributes(recipe_id: @recipe.id, step_id: @step.id)
             # @recipestep.save
@@ -168,7 +178,8 @@ class RecipesController < ApplicationController
         params.permit(
               recipe: [
                 :title,
-                :category
+                :category,
+                :picture_url
               ],
               ingredients: [
                 names: [],
@@ -193,4 +204,3 @@ class RecipesController < ApplicationController
     end
 
 end
-
