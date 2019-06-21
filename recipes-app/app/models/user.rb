@@ -3,10 +3,10 @@ class User < ApplicationRecord
     has_many :recipes, through: :user_recipes
     has_many :relationships, dependent: :destroy
 
-    validates :username, presence: true
-    validates :username, uniqueness: true, length: 8..20
-    validates :age, numericality: { greater_than_or_equal_to: 14 }
-    validates :age, numericality: { only_integer: true }
+    # validates :username, presence: true
+    # validates :username, uniqueness: true, length: 8..20
+    # validates :age, numericality: { greater_than_or_equal_to: 14 }
+    # validates :age, numericality: { only_integer: true }
     validate :registration, on: :create_account
 
     def registration

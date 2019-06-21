@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :recipes
   resources :ingredients
   resources :steps
+
+  # Homepage '/'
+  get '/', to: 'homepage#index'
   
   # Recipes
   delete '/delete/:id', to: "recipes#destroy"
@@ -20,6 +23,7 @@ Rails.application.routes.draw do
   get '/index/:id', to: "users#index"
   get '/sign_up', to: 'users#sign_up'
   get '/login', to: 'users#login'
+  get '/logout', to: 'users#logout'
   post '/authenticate', to: 'users#authenticate'
   post '/sign-up', to: 'users#create_account'
   post '/search-user', to: 'users#search_other_user_page'
